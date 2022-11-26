@@ -17,8 +17,9 @@ public:
                std::string _email,
                std::string _senha,
                std::string _CPF,
-               std::string _telefone, 
-               Reserva _reserva);
+               std::string _telefone);
+
+    void insertReserva(Reserva _reserva);
 };
 
 #endif
