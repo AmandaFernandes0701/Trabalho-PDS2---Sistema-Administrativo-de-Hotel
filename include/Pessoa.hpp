@@ -1,11 +1,11 @@
 #ifndef PESSOA_H
 #define PESSOA_H
 
+#include "BancoDeDados.hpp"
 #include <string>
-using namespace std;
 
 /**
- * @brief Classe abstrata responsavel pela dados mais basicos
+ * @brief Classe abstrata responsavel pela dados basicos
  * de uma pessoa.
  */
 class Pessoa{
@@ -13,23 +13,24 @@ class Pessoa{
 		/**
 		 * @brief Nome da pessoa
 		 */
-		string nome;
+		std::string nome;
 		/**
 		 * @brief Email da pessoa
 		 */
-		string email;
+		std::string email;
 		/**
 		 * @brief Senha da pessoa
 		 */
-		string senha;
+		std::string senha;
 
 	public:
 		/**
 		 * @brief Verifica a informacao de login e senha
 		 * e retorna se as informacoes estao corretas
+		 * @param banco_de_dados Ponteiro para o banco de dados
 		 * @return bool Login realizado ou nao
 		 */
-		virtual bool login(string, string) = 0;
+		virtual bool login(BancoDeDados* banco_de_dados) = 0;
 
 		/**
 		 * @brief Destrutor da classe
