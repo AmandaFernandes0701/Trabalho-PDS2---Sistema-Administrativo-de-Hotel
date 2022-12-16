@@ -4,7 +4,6 @@
 #include <string>
 #include <fstream>
 #include <iostream>
-using namespace std;
 
 /**
  * @brief Classe responsavel por gerenciar os dados de hospedes,
@@ -15,7 +14,7 @@ class BancoDeDados {
         /**
 		 * @brief Guarda os dados de cadastros de hospedes do hotel
 		 */
-        string nome_arquivo_lista_de_hospedes = "lista_de_hospedes.txt";
+        std::string nome_arquivo_lista_de_hospedes = "lista_de_hospedes.txt";
         // Lista de reservas;
         // Lista de quartos;
 
@@ -30,7 +29,16 @@ class BancoDeDados {
 		 * e informa se o usuário foi cadastrado.
          * @return bool cadastro realizado ou nao
 		 */
-        bool cadastrar_hospede(string,string,string,string,string);
+        bool cadastrar_hospede(std::string,std::string,std::string,std::string,std::string);
+
+        /**
+		 * @brief Realiza o login de um hóspede ou funcionário
+		 * e informa se os dados de login estão corretos
+         * @param email Email de login
+         * @param senha Senha de login
+         * @return bool login realizado ou nao
+		 */
+        bool login(std::string email, std::string senha);
 
         /**
 		 * @brief Destrutor da classe
