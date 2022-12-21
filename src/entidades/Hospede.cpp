@@ -13,24 +13,34 @@ Hospede::Hospede(std::string email, std::string senha){
     this->senha = senha;
 }
 
-bool Hospede::login(BancoDeDados* banco_de_dados){
-    bool retorno = banco_de_dados->login(this->email, this->senha);
-    if(retorno == true)
-        std::cout<<"Login realizado com sucesso!"<<std::endl;
-    else{
-        std::cout<<"Falha no login\nVerifique se digitou ";
-        std::cout<<"o email e senha corretamente."<<std::endl;
-    }
-    return retorno;
+bool Hospede::verificar_email(std::string email){
+    if(this->email == email)
+        return true;
+    else
+        return false;
 }
 
-bool Hospede::cadastrar(BancoDeDados* banco_de_dados){
-
-    bool retorno = banco_de_dados->cadastrar_hospede(this->nome, this->email,
-                    this->senha, this->cpf, this->numero_telefone);
-    if(retorno == true)
-        std::cout<<"Cadastro realizado com sucesso"<<std::endl;
+bool Hospede::verificar_senha(std::string senha){
+    if(this->senha == senha)
+        return true;
     else
-        std::cout<<"Cadastro não realizado"<<std::endl;
-    return false;
+        return false;
+}
+
+std::string Hospede::get_nome(){
+    return this->nome;
+}
+std::string Hospede::get_email(){
+    return this->email;
+}
+std::string Hospede::get_senha(){
+    return this->senha;
+}
+
+std::string Hospede::get_cpf(){
+    return this->cpf;
+}
+
+std::string Hospede::get_telefone(){
+    return this->numero_telefone;
 }
