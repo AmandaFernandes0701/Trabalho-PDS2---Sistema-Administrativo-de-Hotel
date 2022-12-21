@@ -2,7 +2,9 @@
 #define HOSPEDE_H
 
 #include "Pessoa.hpp"
-#include "BancoDeDados.hpp"
+// #include "BancoDeDados.hpp"
+
+#include <vector>
 
 /**
  * @brief Classe responsavel pela dados dos hospedes
@@ -37,22 +39,50 @@ class Hospede : Pessoa{
 		 */
 		Hospede(std::string email, std::string senha);
 
-        /**
-		 * @brief Verifica a informacao de login e senha
-		 * e retorna se as informacoes estao corretas
-		 * @param banco_de_dados Ponteiro para o banco de dados
-		 * @return bool Login realizado ou nao
+		/**
+		 * @brief Verifica a informacao de login
+		 * e retorna se o email recebido é igual ou diferente
+		 * @param email email para comparar
+		 * @return bool true se email é igual
+		 * @return bool false se email é diferente
 		 */
-		bool login(BancoDeDados* banco_de_dados) override;
+		bool verificar_email(std::string email) override;
 
-        /**
-		 * @brief Realiza o cadastro do hospede no sistema
-		 * e retorna se o cadastro foi efetuado com sucesso
-		 * @param banco_de_dados Ponteiro para o banco de dados
-		 * @return bool Cadastro realizado ou nao
+		/**
+		 * @brief Verifica a informacao de login
+		 * e retorna se a senha recebido é igual ou diferente
+		 * @param senha senha para comparar
+		 * @return bool true se senha é igual
+		 * @return bool false se senha é diferente
 		 */
-		bool cadastrar(BancoDeDados* banco_de_dados);
-		
+		bool verificar_senha(std::string senha) override;
+
+		/**
+		 * @brief Retorna o nome do hóspede
+		 * @return std::string nome do hóspede
+		 */
+		std::string get_nome();
+		/**
+		 * @brief Retorna o email do hóspede
+		 * @return std::string email do hóspede
+		 */
+		std::string get_email();
+		/**
+		 * @brief Retorna o senha do hóspede
+		 * @return std::string senha do hóspede
+		 */
+		std::string get_senha();
+		/**
+		 * @brief Retorna o cpf do hóspede
+		 * @return std::string cpf do hóspede
+		 */
+		std::string get_cpf();
+		/**
+		 * @brief Retorna o telefone do hóspede
+		 * @return std::string telefone do hóspede
+		 */
+		std::string get_telefone();
+
 };
 
 #endif
