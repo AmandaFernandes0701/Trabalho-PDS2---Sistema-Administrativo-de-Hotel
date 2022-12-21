@@ -1,7 +1,7 @@
 #ifndef PESSOA_H
 #define PESSOA_H
 
-#include "BancoDeDados.hpp"
+// #include "BancoDeDados.hpp"
 #include <string>
 
 /**
@@ -25,12 +25,22 @@ class Pessoa{
 
 	public:
 		/**
-		 * @brief Verifica a informacao de login e senha
-		 * e retorna se as informacoes estao corretas
-		 * @param banco_de_dados Ponteiro para o banco de dados
-		 * @return bool Login realizado ou nao
+		 * @brief Verifica a informacao de login
+		 * e retorna se o email recebido é igual ou diferente
+		 * @param email email para comparar
+		 * @return bool true se email é igual
+		 * @return bool false se email é diferente
 		 */
-		virtual bool login(BancoDeDados* banco_de_dados) = 0;
+		virtual bool verificar_email(std::string email) = 0;
+
+		/**
+		 * @brief Verifica a informacao de login
+		 * e retorna se a senha recebido é igual ou diferente
+		 * @param senha senha para comparar
+		 * @return bool true se senha é igual
+		 * @return bool false se senha é diferente
+		 */
+		virtual bool verificar_senha(std::string senha) = 0;
 
 		/**
 		 * @brief Destrutor da classe
