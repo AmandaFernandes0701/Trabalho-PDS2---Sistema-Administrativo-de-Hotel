@@ -4,22 +4,35 @@
 #include "Pessoa.hpp"
 
 /**
- * @brief Classe responsavel pela dados dos funcionários
+ * @brief Classe responsavel pelos dados dos funcionários
  */
 class Funcionario : Pessoa {
 
 	public:
         /**
-		 * @brief Construtor padrao da classe
+		 * @brief Construtor padrao da classe.
+		 * Inicializa com o email padrão: "funcionario@hotel.com"
+		 * e senha padrão: "pds2"
 		 */
-        Funcionario(string, string);
-        /**
-		 * @brief Verifica a informacao de login e senha
-		 * e retorna se as informacoes estao corretas
-		 * @return bool Login realizado ou nao
+        Funcionario();
+
+		/**
+		 * @brief Verifica a informacao de login
+		 * e retorna se o email recebido é igual ou diferente
+		 * @param email email para comparar
+		 * @return bool true se email é igual
+		 * @return bool false se email é diferente
 		 */
-		bool login(string, string) override;
-		
+		bool verificar_email(std::string email) override;
+
+		/**
+		 * @brief Verifica a informacao de login
+		 * e retorna se a senha recebido é igual ou diferente
+		 * @param senha senha para comparar
+		 * @return bool true se senha é igual
+		 * @return bool false se senha é diferente
+		 */
+		bool verificar_senha(std::string senha) override;
 };
 
 #endif
