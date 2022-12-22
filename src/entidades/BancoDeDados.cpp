@@ -332,13 +332,12 @@ BancoDeDados::~BancoDeDados(){
 
     // Desaloca dados alocados dinamicamente
     for(std::vector<Hospede*>::iterator it = this->hospedes.begin(); it != this->hospedes.end(); it++)
-        free(*it);
+        delete(*it);
 
     for(std::vector<Quarto*>::iterator it = this->quartos.begin(); it != this->quartos.end(); it++)
-        free(*it);
+        delete(*it);
 
-    for(std::vector<Reserva*>::iterator it = this->reservas.begin(); it != this->reservas.end(); it++){
-        (*it)->~Reserva();
-        free(*it);
-    }
+    for(std::vector<Reserva*>::iterator it = this->reservas.begin(); it != this->reservas.end(); it++)
+        delete(*it);
+
 }
