@@ -23,7 +23,7 @@ void BancoDeDados::carregar_dados_hospedes(){
         getline(X, senha, ',');
         getline(X, cpf, ',');
         getline(X, telefone, ',');
-        // std::cout<<nome<<"|"<<email<<"|"<<senha<<"|"<<cpf<<"|"<<telefone<<std::endl;
+
         Hospede *hospede = new Hospede(nome, email, senha, cpf, telefone);
         this->hospedes.push_back(hospede);
     }
@@ -38,7 +38,6 @@ void BancoDeDados::carregar_dados_quartos(){
     arquivo.open(this->nome_arquivo_lista_de_quartos, std::ios::in); // read
 
     while(getline(arquivo, numero_de_quarto)){
-        // std::cout<<numero_de_quarto<<"|"<<std::stoi(numero_de_quarto)<<std::endl;
         Quarto *quarto = new Quarto( std::stoi(numero_de_quarto) );
         this->quartos.push_back(quarto);
     }
@@ -68,7 +67,6 @@ void BancoDeDados::carregar_dados_reservas(){
 
         getline(X, quarto, ',');
         getline(X, email);
-        // std::cout<<data->get_dia()<<"|"<<data->get_mes()<<"|"<<data->get_ano()<<"|"<<quarto<<"|"<<email<<std::endl;
 
         // Encontrar o hóspede que reservou esse quarto
         Hospede* auxiliar = NULL;
@@ -78,9 +76,6 @@ void BancoDeDados::carregar_dados_reservas(){
                 break;
             }
         }
-
-        // TODO
-        // Lançar exceção caso hóspede não esteja cadastrado no sistema
 
         Reserva *reserva = new Reserva(data, std::stoi(quarto), auxiliar);
         this->reservas.push_back(reserva);
@@ -92,7 +87,6 @@ void BancoDeDados::carregar_dados_reservas(){
 bool BancoDeDados::cadastrar_hospede(std::string nome, std::string email, std::string senha,
 				std::string cpf, std::string telefone){
 
-    // TODO: Verificar primeiro se o usuário já está cadastrado?
     Hospede *hospede = new Hospede(nome, email, senha, cpf, telefone);
     this->hospedes.push_back(hospede);
 
@@ -124,23 +118,86 @@ bool BancoDeDados::login_funcionario(std::string email, std::string senha){
     return dados_corretos;
 }
 
-// TODO
-// Tratar dado caso usuário digite fora do formato pedido (DD/MM/AAAA)
+void BancoDeDados::reservar_quarto(std::string data, int quarto, std::string email){
+    Data data_auxiliar = converter_string_para_data(data);
+
+    // Aloca data dinamicamente para ser incluida na Reserva
+    Data* data_para_reservar = new Data();
+    data_para_reservar->set_dia(data_auxiliar.get_dia());
+    data_para_reservar->set_mes(data_auxiliar.get_mes());
+    data_para_reservar->set_ano(data_auxiliar.get_ano());
+
+    Quarto quarto_para_reservar = Quarto(quarto);
+    Hospede* hospede = NULL;
+
+    // Encontra o hospede para pegar o "endereço dele"
+    for(std::vector<Hospede*>::iterator it = hospedes.begin(); it != hospedes.end(); it++)
+        if( (*it)->verificar_email(email) == true){
+            hospede = *it;
+            break;
+        }
+
+    Reserva* nova_reserva = new Reserva(data_para_reservar,
+                                quarto_para_reservar, hospede);
+    this->reservas.push_back(nova_reserva);
+}
+
+void BancoDeDados::imprimir_reservas_do_hospede(std::string email){
+    // Imprime a data e o quarto em que o hóspede tem reserva no hotel
+    bool tem_reserva = false;
+    for(std::vector<Reserva*>::iterator it = this->reservas.begin(); it != this->reservas.end(); it++){
+        if((*it)->get_email() == email){
+            std::cout<<"Data: "<<(*it)->get_dia()<<"/"<<(*it)->get_mes()<<"/"<<
+            (*it)->get_ano()<<", Quarto: "<<(*it)->get_quarto()<<std::endl;
+            tem_reserva = true;
+        }
+    }
+
+    if(tem_reserva == false)
+        std::cout<<"Voce nao tem reservas agendadas"<<std::endl;
+}
+
+void BancoDeDados::cancelar_reserva(std::string data, std::string quarto, std::string email){
+    Data data_auxiliar = converter_string_para_data(data);
+    bool tem_reserva = false;
+
+    for(std::vector<Reserva*>::iterator it = this->reservas.begin(); it != this->reservas.end(); it++){
+        // Remove reserva na data e no quarto indicado
+        if((*it)->get_email() == email && (*it)->verificar_data(data_auxiliar) &&
+        (*it)->get_quarto() == std::stoi(quarto)){
+            this->reservas.erase(it);
+            tem_reserva = true;
+            break;
+        }
+    }
+
+    if(tem_reserva == false)
+        std::cout<<"Voce nao tem reservas agendadas nesse dia e nesse quarto"<<
+        std::endl<<std::endl;
+}
+
 Data BancoDeDados::converter_string_para_data(std::string data_str){
     std::string dia, mes, ano;
     std::stringstream X(data_str);
-    Data data_para_acessar;
+    Data data;
 
-    // quebra a string por delimitador '/'
-    getline(X, dia, '/');
-    data_para_acessar.set_dia(std::stoi(dia));
-    getline(X, mes, '/');
-    data_para_acessar.set_mes(std::stoi(mes));
-    getline(X, ano);
-    data_para_acessar.set_ano(std::stoi(ano));
-    // std::cout<<data_para_acessar.get_dia()<<"|"<<data_para_acessar.get_mes()<<"|"<<data_para_acessar.get_ano()<<std::endl;
+    // Tenta quebrar a string por delimitador '/'. Caso o formato digitado
+    // seja diferente, uma exceção é lançada
+    try{
+        getline(X, dia, '/');
+        data.set_dia(std::stoi(dia));
+        getline(X, mes, '/');
+        data.set_mes(std::stoi(mes));
+        getline(X, ano);
+        data.set_ano(std::stoi(ano));
+    }catch(std::invalid_argument &erro){
+        // erro.what() retorna o erro "stoi"
+        // Esse erro ocorre quando a função não consegue
+        // converter a string para inteiro
+        throw;
+    }
 
-    return data_para_acessar;
+    return data;
 }
 
 void BancoDeDados::acessar_reservas_pela_data(std::string data_str){
@@ -160,10 +217,20 @@ void BancoDeDados::acessar_reservas_pela_data(std::string data_str){
         data_para_acessar.get_dia()<<"/"<<data_para_acessar.get_mes()<<"/"<<
         data_para_acessar.get_ano()<<std::endl;
     }
+    std::cout<<std::endl;
 }
 
 void BancoDeDados::verificar_quartos_livres(std::string data_str){
-    Data data_para_acessar = converter_string_para_data(data_str);
+    Data data_para_acessar;
+
+    // Tenta quebrar a string por delimitador '/'. Caso o formato digitado
+    // seja diferente, uma exceção é lançada
+    try{
+        data_para_acessar = converter_string_para_data(data_str);
+    }catch(std::invalid_argument &erro){
+        throw;
+    }
+
     int quantidade_livres = 0, auxiliar;
     std::vector<int> quartos_ocupados, quartos_livres;
 
@@ -193,7 +260,7 @@ void BancoDeDados::verificar_quartos_livres(std::string data_str){
     // Imprime os quartos livres
     for(std::vector<int>::iterator it = quartos_livres.begin(); it != quartos_livres.end(); it++)
         std::cout<<*it<<" ";
-    std::cout<<std::endl;
+    std::cout<<std::endl<<std::endl;
 }
 
 void BancoDeDados::acessar_informacoes_hospedes(std::string nome){
@@ -208,6 +275,7 @@ void BancoDeDados::acessar_informacoes_hospedes(std::string nome){
 
     if(tem_reserva == false)
         std::cout<<"Esse hóspede nao possui reservas agendadas"<<std::endl;
+    std::cout<<std::endl;
 }
 
 void BancoDeDados::salvar_dados_hospedes(){
@@ -230,6 +298,8 @@ void BancoDeDados::salvar_dados_reservas(){
     arquivo.close();
 }
 
+// TODO
+// Verificar dados alocados dinamicamente
 BancoDeDados::~BancoDeDados(){
     this->salvar_dados_hospedes();
     this->salvar_dados_reservas();
