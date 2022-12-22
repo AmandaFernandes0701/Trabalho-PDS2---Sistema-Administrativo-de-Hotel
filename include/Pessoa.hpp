@@ -24,8 +24,9 @@ class Pessoa{
 
 	public:
 		/**
-		 * @brief Verifica a informacao de login
+		 * @brief Método virtual que verifica a informacao de login
 		 * e retorna se o email recebido é igual ou diferente
+		 * 
 		 * @param email email para comparar
 		 * @return bool true se email é igual
 		 * @return bool false se email é diferente
@@ -33,8 +34,9 @@ class Pessoa{
 		virtual bool verificar_email(std::string email) = 0;
 
 		/**
-		 * @brief Verifica a informacao de login
+		 * @brief Método virtual que verifica a informacao de login
 		 * e retorna se a senha recebido é igual ou diferente
+		 * 
 		 * @param senha senha para comparar
 		 * @return bool true se senha é igual
 		 * @return bool false se senha é diferente
@@ -42,7 +44,7 @@ class Pessoa{
 		virtual bool verificar_senha(std::string senha) = 0;
 
 		/**
-		 * @brief Destrutor da classe
+		 * @brief Destrutor virtual da classe
 		 */
 		virtual ~Pessoa() = default;
 };
