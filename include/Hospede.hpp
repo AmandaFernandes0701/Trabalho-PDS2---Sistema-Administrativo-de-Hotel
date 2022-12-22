@@ -90,7 +90,6 @@ class Hospede : Pessoa{
 		 * @return std::string telefone do hóspede
 		 */
 		std::string get_telefone();
-
 };
 
 #endif
