@@ -14,15 +14,15 @@ class Reserva {
         /**
 		 * @brief data da reserva
 		 */
-        Data* data;
+        Data* data = NULL;
         /**
 		 * @brief quarto reservado
 		 */
-        Quarto* quarto;
+        Quarto* quarto = NULL;
         /**
 		 * @brief hóspede que realizou a reserva
 		 */
-        Hospede* hospede;
+        Hospede* hospede = NULL;
 
     public:
         /**
@@ -83,6 +83,11 @@ class Reserva {
 		 * @return bool false se data é diferente
 		 */
         bool verificar_data(Data data);
+
+        /**
+		 * @brief Destrutor da classe
+		 */
+        ~Reserva();
 };
 
 #endif
