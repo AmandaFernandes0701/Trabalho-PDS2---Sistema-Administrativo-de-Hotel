@@ -18,14 +18,3 @@ bool Funcionario::verificar_senha(std::string senha){
     else
         return false;
 }
-
-// TODO
-// Visualizar informações dos hóspedes cadastrados (filtrar por nome de usuário).
-// --> Acesso somente a histórico de reservas do hóspede
-
-/*
-Como funcionário do hotel, eu desejo acessar determinadas informações dos
-hóspedes cadastrados na base de dados do meu sistema, assim, posso tomar
-decisões de como adequar o hotel para atender ainda melhor ao perfil de hóspede
-que nele se hospeda.
-*/
