@@ -33,3 +33,9 @@ std::string Reserva::get_email(){
 bool Reserva::verificar_data(Data data_para_verificar){
     return this->data->verificar_data(data_para_verificar);
 }
+
+Reserva::~Reserva(){
+    free(data);
+    free(quarto);
+    free(hospede);
+}
