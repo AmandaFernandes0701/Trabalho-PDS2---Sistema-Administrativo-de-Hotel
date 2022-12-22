@@ -3,3 +3,4 @@ Patricia Silva,patricia@gmail.com,5555,11483363111,35964138774
 Elizabeth Mendes,elizabeth@gmail.com,7777,31963528411,35964138774
 Sandra Regina,sandrinha@ufmg.br,chapaunica,11177899609,31990005462
 Milton Nascimento,milton@gmail.com,clubedaesquina,19700089611,31988317412
+Julius,julius@gmail.com,desconto,11564578691,+1583334121
