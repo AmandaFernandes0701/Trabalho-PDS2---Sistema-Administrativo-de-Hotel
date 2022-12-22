@@ -2,14 +2,14 @@ CC = g++
 CFLAGS  = -Wall -std=c++11
 INCLUDE_FLAGS = -I include/
 
-default: trabalho
+default: trabalho testar
 
-pessoa:	pessoa.o
-	$(CC) $(CFLAGS) -o pessoa build/pessoa.o
+# pessoa:	pessoa.o
+# 	$(CC) $(CFLAGS) -o pessoa build/pessoa.o
 
-pessoa.o:  src/entidades/Pessoa.cpp
-	@mkdir -p build
-	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c src/entidades/Pessoa.cpp -o build/pessoa.o
+# pessoa.o:  src/entidades/Pessoa.cpp
+# 	@mkdir -p build
+# 	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c src/entidades/Pessoa.cpp -o build/pessoa.o
 
 hospede:  hospede.o
 	$(CC) $(CFLAGS) -o hospede build/hospede.o
@@ -60,8 +60,20 @@ main.o: src/main.cpp
 	@mkdir -p build
 	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c src/main.cpp -o build/main.o
 
-trabalho: pessoa.o hospede.o funcionario.o banco.o data.o quarto.o reserva.o main.o
-	$(CC) $(CFLAGS) -o trabalho build/main.o build/pessoa.o build/hospede.o build/funcionario.o build/banco.o build/data.o build/quarto.o build/reserva.o
+trabalho: hospede.o funcionario.o banco.o data.o quarto.o reserva.o main.o
+	$(CC) $(CFLAGS) -o trabalho build/main.o build/hospede.o build/funcionario.o build/banco.o build/data.o build/quarto.o build/reserva.o
+
+
+# Compilando o executável de testes
+teste: teste.o
+	$(CC) $(CFLAGS) -o teste build/teste.o
+
+teste.o: testes/teste.cpp
+	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -I third_party/ -c testes/teste.cpp -o build/teste.o
+
+testar: teste.o hospede.o funcionario.o banco.o data.o quarto.o reserva.o
+	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -I third_party/ -o testar build/teste.o build/hospede.o build/funcionario.o build/banco.o build/data.o build/quarto.o build/reserva.o
+
 
 clean:
-	@rm -rf ./build trabalho
+	@rm -rf ./build trabalho testar
