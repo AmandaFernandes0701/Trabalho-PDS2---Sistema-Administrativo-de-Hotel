@@ -9,6 +9,7 @@ std::string EMAIL_LOGADO = "";
 
 /**
  * @brief Menu para obter dados para o cadastro do hóspede no sistema
+ * 
  * @return bool true se cadastro foi feito com sucesso
  * @return bool false se cadastro não foi realizado
  */
@@ -29,7 +30,6 @@ bool cadastrar_no_sistema(){
     std::cout<<"Digite o seu telefone: ";
     std::cin>>telefone;
 
-    // TODO: Verificar se dados foram preenchidos corretamente
     bool retorno = banco_de_dados.cadastrar_hospede(nome, email, senha, cpf,
                                                     telefone);
     if(retorno == false){
@@ -47,6 +47,7 @@ bool cadastrar_no_sistema(){
 
 /**
  * @brief Menu responsável por tratar o login do hóspede
+ * 
  * @return bool true se os dados de login estão corretos
  * @return bool false se os dados de login estão errados
  */
@@ -75,6 +76,7 @@ bool logar_hospede(){
 
 /**
  * @brief Menu responsável por tratar o login do funcionário
+ * 
  * @return bool true se os dados de login estão corretos
  * @return bool false se os dados de login estão errados
  */
@@ -134,8 +136,8 @@ void funcoes_hospede(){
                 //  que qualquer dado na memória em tempo de execução poderá
                 // ser salvo posteriormente nos arquivos .txt
                 std::cout<<"A data digitada '"<< data <<
-                "' está no formato errado.\n";
-                std::cout<<"Você deve digitar a data seguindo o formato "<<
+                "' esta no formato errado.\n";
+                std::cout<<"Voce deve digitar a data seguindo o formato "<<
                 "DD/MM/AAAA.\n";
                 std::cout<<"Exemplo: 23/12/2022\n\n";
                 continue;
@@ -162,7 +164,19 @@ void funcoes_hospede(){
             std::cout<<"\nDigite qual a data e o quarto que queira cancelar: ";
             std::cin>>data>>quarto;
 
-            banco_de_dados.cancelar_reserva(data, quarto, EMAIL_LOGADO);
+            try{
+                banco_de_dados.cancelar_reserva(data, quarto, EMAIL_LOGADO);
+            }catch(std::invalid_argument &erro){
+                // Exceção capturada e tratada sem terminar o programa garante
+                //  que qualquer dado na memória em tempo de execução poderá
+                // ser salvo posteriormente nos arquivos .txt
+                std::cout<<"A data digitada '"<< data <<
+                "' esta no formato errado.\n";
+                std::cout<<"Voce deve digitar a data seguindo o formato "<<
+                "DD/MM/AAAA.\n";
+                std::cout<<"Exemplo: 23/12/2022\n\n";
+                continue;
+            }
 
         }
         else if(escolha == 3){
@@ -201,7 +215,19 @@ void funcoes_funcionario(){
                 std::cout<<"formato DD/MM/AAAA: ";
                 std::cin>>data;
 
-                banco_de_dados.acessar_reservas_pela_data(data);
+                try{
+                    banco_de_dados.acessar_reservas_pela_data(data);
+                }catch(std::invalid_argument &erro){
+                    // Exceção capturada e tratada sem terminar o programa garante
+                    //  que qualquer dado na memória em tempo de execução poderá
+                    // ser salvo posteriormente nos arquivos .txt
+                    std::cout<<"A data digitada '"<< data <<
+                    "' esta no formato errado.\n";
+                    std::cout<<"Voce deve digitar a data seguindo o formato "<<
+                    "DD/MM/AAAA.\n";
+                    std::cout<<"Exemplo: 23/12/2022\n\n";
+                    continue;
+                }
 
                 break;
             }
@@ -213,7 +239,19 @@ void funcoes_funcionario(){
                 std::cout<<"livres no formato DD/MM/AAAA: ";
                 std::cin>>data;
 
-                banco_de_dados.verificar_quartos_livres(data);
+                try{
+                    banco_de_dados.verificar_quartos_livres(data);
+                }catch(std::invalid_argument &erro){
+                    // Exceção capturada e tratada sem terminar o programa garante
+                    //  que qualquer dado na memória em tempo de execução poderá
+                    // ser salvo posteriormente nos arquivos .txt
+                    std::cout<<"A data digitada '"<< data <<
+                    "' esta no formato errado.\n";
+                    std::cout<<"Voce deve digitar a data seguindo o formato "<<
+                    "DD/MM/AAAA.\n";
+                    std::cout<<"Exemplo: 23/12/2022\n\n";
+                    continue;
+                }
 
                 break;
             }
@@ -225,6 +263,7 @@ void funcoes_funcionario(){
                 std::cout<<"OBS: O nome tem que estar escrito de forma exata: ";
                 std::cin.ignore();
                 std::getline(std::cin, nome);
+                std::cout<<std::endl;
 
                 banco_de_dados.acessar_informacoes_hospedes(nome);
 
