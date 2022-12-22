@@ -22,6 +22,7 @@ bool Funcionario::verificar_senha(std::string senha){
 // TODO
 // Implementar USER STORY seguinte
 // --> Acesso somente a histórico de reservas do hóspede
+// --> Filtrar por nome de usuário
 
 /*
 Como funcionário do hotel, eu desejo acessar determinadas informações dos

@@ -15,7 +15,8 @@
 class BancoDeDados {
     private:
         /**
-		 * @brief Guarda os dados de cadastros de hospedes do hotel
+		 * @brief Endereços dos arquivos .txt que guardam os dados de
+         * cadastros de hospedes, quartos e reservas do hotel em arquivos .txt
 		 */
         std::string nome_arquivo_lista_de_hospedes = "banco_de_dados/lista_de_hospedes.txt";
         std::string nome_arquivo_lista_de_quartos = "banco_de_dados/lista_de_quartos.txt";
@@ -28,15 +29,15 @@ class BancoDeDados {
         std::vector<Hospede*> hospedes;
 
         /**
+         * @brief Armazena os quartos em tempo de execução.
+        */
+        std::vector<Quarto*> quartos;
+
+        /**
          * @brief Armazena as reservas em tempo de execução. Antes de encerrar, o programa salva
          * as reservas cadastradas/alteradas no '.txt'.
         */
         std::vector<Reserva*> reservas;
-
-        /**
-         * @brief Armazena os quartos em tempo de execução.
-        */
-        std::vector<Quarto*> quartos;
 
     public:
         /**
@@ -57,7 +58,12 @@ class BancoDeDados {
 		 */
         void carregar_dados_quartos();
 
-        // carregar_dados_reservas();
+        /**
+		 * @brief Lê os dados das reservas salvos em arquivo `.txt`
+         * e carrega todos os dados para a memória de forma estruturada
+         * usando um vector do tipo Reserva*
+		 */
+        void carregar_dados_reservas();
 
         /**
 		 * @brief Realiza o cadastro de um novo hóspede
@@ -89,6 +95,12 @@ class BancoDeDados {
          * hóspedes no .txt
 		 */
         void salvar_dados_hospedes();
+
+        /**
+		 * @brief Salva os dados das reservas armazenadas no vector de
+         * reservas no .txt
+		 */
+        void salvar_dados_reservas();
 
         /**
 		 * @brief Destrutor da classe

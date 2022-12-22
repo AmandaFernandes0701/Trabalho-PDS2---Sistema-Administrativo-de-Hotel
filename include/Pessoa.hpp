@@ -1,7 +1,6 @@
 #ifndef PESSOA_H
 #define PESSOA_H
 
-// #include "BancoDeDados.hpp"
 #include <string>
 
 /**

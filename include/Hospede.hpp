@@ -2,7 +2,6 @@
 #define HOSPEDE_H
 
 #include "Pessoa.hpp"
-// #include "BancoDeDados.hpp"
 
 #include <vector>
 

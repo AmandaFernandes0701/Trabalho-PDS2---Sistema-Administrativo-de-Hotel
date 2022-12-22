@@ -9,7 +9,21 @@ class Quarto {
         int numero_quarto;
         bool status_ocupado;
     public:
-        Quarto(int);
+        /**
+		 * @brief Construtor padrao da classe.
+		 */
+        Quarto();
+        /**
+		 * @brief Construtor alternativo da classe.
+         * @param quarto número do quarto
+		 */
+        Quarto(int quarto);
+
+        /**
+		 * @brief Retorna o número do quarto
+         * @return int quarto
+		 */
+        int get_quarto();
 };
 
 #endif
