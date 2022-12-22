@@ -18,6 +18,7 @@ class BancoDeDados {
         /**
 		 * @brief Endereços dos arquivos .txt que guardam os dados de
          * cadastros de hospedes, quartos e reservas do hotel em arquivos .txt
+         * OBS: arquivo com lista de reservas só pode ter uma linha em branco
 		 */
         std::string nome_arquivo_lista_de_hospedes = "banco_de_dados/lista_de_hospedes.txt";
         std::string nome_arquivo_lista_de_quartos = "banco_de_dados/lista_de_quartos.txt";
@@ -46,6 +47,7 @@ class BancoDeDados {
          * usando um vector do tipo Hospede*
 		 */
         void carregar_dados_hospedes();
+
         /**
 		 * @brief Lê os dados de quartos salvos em arquivo `.txt`
          * e carrega todos os dados para a memória de forma estruturada
@@ -82,6 +84,7 @@ class BancoDeDados {
         /**
 		 * @brief Realiza o cadastro de um novo hóspede
 		 * e informa se o usuário foi cadastrado.
+         * 
          * @return bool cadastro realizado ou nao
 		 */
         bool cadastrar_hospede(std::string,std::string,std::string,std::string,std::string);
@@ -89,6 +92,7 @@ class BancoDeDados {
         /**
 		 * @brief Realiza o login de um hóspede
 		 * e informa se os dados de login estão corretos
+         * 
          * @param email Email de login
          * @param senha Senha de login
          * @return bool login realizado ou nao
@@ -98,6 +102,7 @@ class BancoDeDados {
         /**
 		 * @brief Realiza o login de um funcionário
 		 * e informa se os dados de login estão corretos
+         * 
          * @param email Email de login
          * @param senha Senha de login
          * @return bool login realizado ou nao
@@ -105,15 +110,43 @@ class BancoDeDados {
         bool login_funcionario(std::string email, std::string senha);
 
         /**
+		 * @brief Cria uma reserva para um hóspede no quarto desejado
+         * 
+         * @param data data a ser reservada
+         * @param quarto quarto a ser reservado
+         * @param email std::string email do hóspede
+		 */
+        void reservar_quarto(std::string data, int quarto, std::string email);
+
+        /**
+		 * @brief Imprime todas as reservas do hóspede
+         * 
+         * @param email std::string email do hóspede
+		 */
+        void imprimir_reservas_do_hospede(std::string email);
+
+        /**
+		 * @brief Cancela a reserva do hóspede na data e quarto informados
+         * 
+         * @param data std::string data da reserva
+         * @param quarto std::string quarto da reserva
+         * @param email std::string email do hóspede
+		 */
+        void cancelar_reserva(std::string data, std::string quarto, std::string email);
+
+        /**
 		 * @brief Acessa a lista de reservas feitas em uma
          * determinada data
+         * 
          * @param data data a ser verficada
 		 */
         void acessar_reservas_pela_data(std::string data);
 
         /**
 		 * @brief Método auxiliar para converter uma string para um objeto
-         * do tipo Data
+         * do tipo Data. Caso a data recebida esteja fora do formato
+         * requerido, uma exceção é lançada para informar o erro ao usuário
+         * 
          * @param data string a ser convertida
          * @return Data* ponteiro para a data criada
 		 */
@@ -122,6 +155,7 @@ class BancoDeDados {
         /**
 		 * @brief Verifica quais quartos estão desocupados em uma
          * determinada data
+         * 
          * @param data data a ser verficada
 		 */
         void verificar_quartos_livres(std::string data);
@@ -129,6 +163,7 @@ class BancoDeDados {
         /**
 		 * @brief Acessa informações dos hóspedes cadastrados e imprime o
          * histórico de reservas do hóspede
+         * 
          * @param nome nome do hóspede
 		 */
         void acessar_informacoes_hospedes(std::string nome);
