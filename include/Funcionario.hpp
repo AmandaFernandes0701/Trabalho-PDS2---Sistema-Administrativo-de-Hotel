@@ -19,6 +19,7 @@ class Funcionario : Pessoa {
 		/**
 		 * @brief Verifica a informacao de login
 		 * e retorna se o email recebido é igual ou diferente
+		 * 
 		 * @param email email para comparar
 		 * @return bool true se email é igual
 		 * @return bool false se email é diferente
@@ -28,13 +29,12 @@ class Funcionario : Pessoa {
 		/**
 		 * @brief Verifica a informacao de login
 		 * e retorna se a senha recebido é igual ou diferente
+		 * 
 		 * @param senha senha para comparar
 		 * @return bool true se senha é igual
 		 * @return bool false se senha é diferente
 		 */
 		bool verificar_senha(std::string senha) override;
-
-		void imprimir_historico_reservas();
 };
 
 #endif
