@@ -1,3 +1,7 @@
 1/1/2023,101,joao@gmail.com
 1/1/2023,202,patricia@gmail.com
 2/1/2023,201,elizabeth@gmail.com
+3/1/2023,303,sandrinha@ufmg.br
+4/1/2023,201,patricia@gmail.com
+4/1/2023,202,elizabeth@gmail.com
+5/1/2023,303,sandrinha@ufmg.br
