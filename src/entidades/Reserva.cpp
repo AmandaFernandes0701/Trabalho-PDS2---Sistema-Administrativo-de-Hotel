@@ -22,6 +22,14 @@ int Reserva::get_quarto(){
     return this->quarto->get_quarto();
 }
 
+std::string Reserva::get_nome(){
+    return this->hospede->get_nome();
+}
+
 std::string Reserva::get_email(){
     return this->hospede->get_email();
+}
+
+bool Reserva::verificar_data(Data data_para_verificar){
+    return this->data->verificar_data(data_para_verificar);
 }

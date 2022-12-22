@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 #include "Reserva.hpp"
 
@@ -39,12 +40,6 @@ class BancoDeDados {
         */
         std::vector<Reserva*> reservas;
 
-    public:
-        /**
-		 * @brief Construtor padrao da classe
-		 */
-        BancoDeDados();
-
         /**
 		 * @brief Lê os dados de hóspedes salvos em arquivo `.txt`
          * e carrega todos os dados para a memória de forma estruturada
@@ -64,6 +59,25 @@ class BancoDeDados {
          * usando um vector do tipo Reserva*
 		 */
         void carregar_dados_reservas();
+
+        /**
+		 * @brief Salva os dados dos hóspedes armazenados no vector de
+         * hóspedes no .txt
+		 */
+        void salvar_dados_hospedes();
+
+        /**
+		 * @brief Salva os dados das reservas armazenadas no vector de
+         * reservas no .txt
+		 */
+        void salvar_dados_reservas();
+
+    public:
+        /**
+		 * @brief Construtor padrao da classe
+		 */
+        BancoDeDados();
+
 
         /**
 		 * @brief Realiza o cadastro de um novo hóspede
@@ -91,16 +105,34 @@ class BancoDeDados {
         bool login_funcionario(std::string email, std::string senha);
 
         /**
-		 * @brief Salva os dados dos hóspedes armazenados no vector de
-         * hóspedes no .txt
+		 * @brief Acessa a lista de reservas feitas em uma
+         * determinada data
+         * @param data data a ser verficada
 		 */
-        void salvar_dados_hospedes();
+        void acessar_reservas_pela_data(std::string data);
 
         /**
-		 * @brief Salva os dados das reservas armazenadas no vector de
-         * reservas no .txt
+		 * @brief Método auxiliar para converter uma string para um objeto
+         * do tipo Data
+         * @param data string a ser convertida
+         * @return Data* ponteiro para a data criada
 		 */
-        void salvar_dados_reservas();
+        Data converter_string_para_data(std::string data);
+
+        /**
+		 * @brief Verifica quais quartos estão desocupados em uma
+         * determinada data
+         * @param data data a ser verficada
+		 */
+        void verificar_quartos_livres(std::string data);
+
+        /**
+		 * @brief Acessa informações dos hóspedes cadastrados e imprime o
+         * histórico de reservas do hóspede
+         * @param nome nome do hóspede
+		 */
+        void acessar_informacoes_hospedes(std::string nome);
+
 
         /**
 		 * @brief Destrutor da classe

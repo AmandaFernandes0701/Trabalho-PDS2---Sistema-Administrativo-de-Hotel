@@ -10,11 +10,14 @@ int main()
 
     while(FLAG == true){
         std::cout<<"Digite:"<<std::endl;
-        std::cout<<"1 para cadastrar hóspede"<<std::endl;
-        std::cout<<"2 para logar hóspede"<<std::endl;
-        std::cout<<"3 para logar funcionário"<<std::endl;
+        std::cout<<"1 para cadastrar hospede"<<std::endl;
+        std::cout<<"2 para logar hospede"<<std::endl;
+        std::cout<<"3 para logar funcionario"<<std::endl;
         std::cout<<"4 para reservar quarto"<<std::endl;
-        std::cout<<"5 para sair"<<std::endl;
+        std::cout<<"5 para funcionario acessar reservas pela data"<<std::endl;
+        std::cout<<"6 para funcionario verificar quartos livres pela data"<<std::endl;
+        std::cout<<"7 para funcionario visualizar informacoes do hospede"<<std::endl;
+        std::cout<<"8 para sair"<<std::endl;
         std::cin>>escolha;
 
         switch (escolha)
@@ -97,6 +100,43 @@ int main()
                 break;
             }
             case 5:{
+
+                std::string data;
+
+                std::cout<<"Digite a data que queira acessar as reservas no ";
+                std::cout<<"formato DD/MM/AAAA: ";
+                std::cin>>data;
+
+                banco_de_dados.acessar_reservas_pela_data(data);
+
+                break;
+            }
+            case 6:{
+
+                std::string data;
+
+                std::cout<<"Digite a data que queira verificar os quartos ";
+                std::cout<<"livres no formato DD/MM/AAAA: ";
+                std::cin>>data;
+
+                banco_de_dados.verificar_quartos_livres(data);
+
+                break;
+            }
+            case 7:{
+
+                std::string nome;
+
+                std::cout<<"Digite o nome do hospede que queira verificar as informacoes."<<std::endl;
+                std::cout<<"OBS: O nome tem que estar escrito de forma exata: ";
+                std::cin.ignore();
+                std::getline(std::cin, nome);
+
+                banco_de_dados.acessar_informacoes_hospedes(nome);
+
+                break;
+            }
+            case 8:{
                 FLAG = false;
                 break;
             }

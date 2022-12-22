@@ -24,3 +24,10 @@ void Data::set_mes(int mes){
 void Data::set_ano(int ano){
     this->ano = ano;
 }
+
+bool Data::verificar_data(Data data){
+    if(this->dia == data.get_dia() && this->mes == data.get_mes() &&
+    this->ano == data.get_ano())
+        return true;
+    return false;
+}

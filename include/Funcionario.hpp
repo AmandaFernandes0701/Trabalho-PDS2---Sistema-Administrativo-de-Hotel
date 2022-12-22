@@ -33,6 +33,8 @@ class Funcionario : Pessoa {
 		 * @return bool false se senha é diferente
 		 */
 		bool verificar_senha(std::string senha) override;
+
+		void imprimir_historico_reservas();
 };
 
 #endif

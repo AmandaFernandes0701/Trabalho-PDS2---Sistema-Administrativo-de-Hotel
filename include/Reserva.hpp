@@ -56,10 +56,25 @@ class Reserva {
         int get_quarto();
 
         /**
+         * @brief Retorna o nome do hóspede
+         * @return std::string nome
+         */
+        std::string get_nome();
+
+        /**
          * @brief Retorna o email do hóspede
          * @return std::string email do hóspede
          */
         std::string get_email();
+
+        /**
+		 * @brief Verifica a data informada
+		 * e retorna se a data recebida é igual ou diferente
+		 * @param data data para comparar
+		 * @return bool true se data é igual
+		 * @return bool false se data é diferente
+		 */
+        bool verificar_data(Data data);
 };
 
 #endif

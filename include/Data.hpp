@@ -42,6 +42,15 @@ class Data {
          * @param ano ano
          */
         void set_ano(int ano);
+
+        /**
+		 * @brief Verifica se a data informada
+		 * e retorna se a data recebida é igual ou diferente
+		 * @param data data para comparar
+		 * @return bool true se data é igual
+		 * @return bool false se data é diferente
+		 */
+        bool verificar_data(Data data);
 };
 
 #endif
