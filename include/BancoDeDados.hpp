@@ -154,7 +154,8 @@ class BancoDeDados {
 
         /**
 		 * @brief Verifica quais quartos estão desocupados em uma
-         * determinada data
+         * determinada data. Caso a data recebida esteja fora do formato
+         * requerido, uma exceção é lançada para informar o erro ao usuário
          * 
          * @param data data a ser verficada
 		 */
@@ -162,7 +163,9 @@ class BancoDeDados {
 
         /**
 		 * @brief Acessa informações dos hóspedes cadastrados e imprime o
-         * histórico de reservas do hóspede
+         * histórico de reservas do hóspede. Caso a data recebida esteja fora
+         * do formato requerido, uma exceção é lançada para informar o erro
+         * ao usuário
          * 
          * @param nome nome do hóspede
 		 */
