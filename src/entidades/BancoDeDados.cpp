@@ -2,9 +2,16 @@
 #include <sstream>
 
 BancoDeDados::BancoDeDados(){
-    this->carregar_dados_hospedes();
-    this->carregar_dados_quartos();
-    this->carregar_dados_reservas();
+    try{
+        this->carregar_dados_hospedes();
+        this->carregar_dados_quartos();
+        this->carregar_dados_reservas();
+    }catch (std::exception &erro) {
+        std::cout << "Arquivo '" << erro.what() << "' nao encontrado.\n";
+        std::cout << "Verifique se o arquivo nao esta salvo em outra pasta.\n";
+        std::cout << "Esse arquivo e necessario para o correto funcionamento ";
+        std::cout << "do sistema\n";
+    }
 }
 
 void BancoDeDados::carregar_dados_hospedes(){
@@ -13,6 +20,10 @@ void BancoDeDados::carregar_dados_hospedes(){
     std::string nome, email, senha, cpf, telefone;
 
     arquivo.open(this->nome_arquivo_lista_de_hospedes, std::ios::in); // read
+
+    if(arquivo.is_open() == false){
+        throw std::runtime_error(this->nome_arquivo_lista_de_hospedes);
+    }
 
     while(getline(arquivo, linha)){
 
@@ -37,6 +48,10 @@ void BancoDeDados::carregar_dados_quartos(){
 
     arquivo.open(this->nome_arquivo_lista_de_quartos, std::ios::in); // read
 
+    if(arquivo.is_open() == false){
+        throw std::runtime_error(this->nome_arquivo_lista_de_quartos);
+    }
+
     while(getline(arquivo, numero_de_quarto)){
         Quarto *quarto = new Quarto( std::stoi(numero_de_quarto) );
         this->quartos.push_back(quarto);
@@ -51,6 +66,10 @@ void BancoDeDados::carregar_dados_reservas(){
     std::string temp, dia, mes, ano, quarto, email;
 
     arquivo.open(this->nome_arquivo_lista_de_reservas, std::ios::in); // read
+
+    if(arquivo.is_open() == false){
+        throw std::runtime_error(this->nome_arquivo_lista_de_reservas);
+    }
 
     while(getline(arquivo, linha)){
 
@@ -201,7 +220,15 @@ Data BancoDeDados::converter_string_para_data(std::string data_str){
 }
 
 void BancoDeDados::acessar_reservas_pela_data(std::string data_str){
-    Data data_para_acessar = converter_string_para_data(data_str);
+    Data data_para_acessar;
+
+    // Tenta quebrar a string por delimitador '/'. Caso o formato digitado
+    // seja diferente, uma exceção é lançada
+    try{
+        data_para_acessar = converter_string_para_data(data_str);
+    }catch(std::invalid_argument &erro){
+        throw;
+    }
 
     // Imprime os quartos e nome dos hóspedes com reservas para a data fornecida
     bool tem_reserva = false;
@@ -290,6 +317,7 @@ void BancoDeDados::salvar_dados_hospedes(){
 
 void BancoDeDados::salvar_dados_reservas(){
     std::ofstream arquivo;
+
     arquivo.open(this->nome_arquivo_lista_de_reservas, std::ios::out); // write
 
     for(std::vector<Reserva*>::iterator it = this->reservas.begin(); it != this->reservas.end(); it++){
@@ -298,9 +326,19 @@ void BancoDeDados::salvar_dados_reservas(){
     arquivo.close();
 }
 
-// TODO
-// Verificar dados alocados dinamicamente
 BancoDeDados::~BancoDeDados(){
     this->salvar_dados_hospedes();
     this->salvar_dados_reservas();
+
+    // Desaloca dados alocados dinamicamente
+    for(std::vector<Hospede*>::iterator it = this->hospedes.begin(); it != this->hospedes.end(); it++)
+        free(*it);
+
+    for(std::vector<Quarto*>::iterator it = this->quartos.begin(); it != this->quartos.end(); it++)
+        free(*it);
+
+    for(std::vector<Reserva*>::iterator it = this->reservas.begin(); it != this->reservas.end(); it++){
+        (*it)->~Reserva();
+        free(*it);
+    }
 }
